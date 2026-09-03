@@ -1,0 +1,299 @@
+/* ── App shell ──────────────────────────────────── */
+.app {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Top nav ────────────────────────────────────── */
+.app-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  background: rgba(6, 8, 16, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.nav-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: var(--glow-indigo);
+  flex-shrink: 0;
+}
+
+.nav-brand-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.nav-brand-text span {
+  color: var(--indigo);
+}
+
+.nav-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--cyan);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 99px;
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+
+/* ── Main content area ──────────────────────────── */
+.app-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1.5rem 6rem;
+}
+
+.screen-container {
+  width: 100%;
+  max-width: 780px;
+  animation: fade-up 0.35s ease both;
+}
+
+/* ── Page screen transitions ────────────────────── */
+.screen-enter {
+  animation: fade-up 0.35s ease both;
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  background: rgba(6, 8, 16, 0.9);
+  border-top: 1px solid var(--border-faint);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.app-footer span {
+  color: var(--indigo);
+}
+
+/* ── Shared card ─────────────────────────────────── */
+.card {
+  background: rgba(20, 25, 41, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-faint);
+  border-radius: 20px;
+  padding: 2rem 2.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left accent bar — the "hand-crafted" touch */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 3px;
+  height: 48px;
+  background: linear-gradient(180deg, var(--indigo), var(--violet));
+  border-radius: 0 4px 4px 0;
+}
+
+/* ── Buttons ─────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: -0.01em;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.07) 50%, transparent 70%);
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position 0.4s ease;
+}
+.btn:hover::after {
+  background-position: -200% 0;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  color: #fff;
+  box-shadow: 0 0 0 0 rgba(99,102,241,0);
+  transition: all 0.25s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(99,102,241,0.45);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-mid);
+  border: 1px solid var(--border-faint);
+}
+.btn-ghost:hover {
+  border-color: var(--border-soft);
+  color: var(--text-bright);
+  background: rgba(99,102,241,0.06);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ── Form inputs ─────────────────────────────────── */
+.field-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.55rem;
+}
+
+.field-textarea {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-faint);
+  background: rgba(10, 13, 26, 0.7);
+  color: var(--text-bright);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  resize: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 120px;
+}
+.field-textarea::placeholder {
+  color: var(--text-dim);
+}
+.field-textarea:focus {
+  outline: none;
+  border-color: var(--border-glow);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1), var(--glow-indigo);
+}
+
+/* ── Progress bar ────────────────────────────────── */
+.progress-track {
+  width: 100%;
+  height: 5px;
+  background: var(--surface-3);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--indigo), var(--cyan));
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  transform: translateX(50%);
+}
+
+/* ── Status badges ───────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.badge-indigo  { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+.badge-emerald { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
+.badge-amber   { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+.badge-rose    { background: rgba(244,63,94,0.12);  color: #fb7185; border: 1px solid rgba(244,63,94,0.25); }
+.badge-cyan    { background: rgba(34,211,238,0.1);  color: #22d3ee; border: 1px solid rgba(34,211,238,0.2); }
+
+/* ── Error banner ────────────────────────────────── */
+.error-banner {
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: #fb7185;
+  font-size: 0.875rem;
+  animation: fade-up 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 640px) {
+  .app-main { padding: 2rem 1rem 5rem; }
+  .card { padding: 1.5rem 1.25rem; }
+  .btn { font-size: 0.85rem; }
+}

@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* -- Deep Space Palette -- */
+  --void:        #060810;
+  --space:       #0a0d1a;
+  --nebula:      #0f1424;
+  --surface:     #141929;
+  --surface-2:   #1a2035;
+  --surface-3:   #202640;
+
+  /* -- Accent Palette -- */
+  --indigo:      #6366f1;
+  --indigo-dim:  #4f51c7;
+  --violet:      #8b5cf6;
+  --cyan:        #22d3ee;
+  --cyan-dim:    #0891b2;
+  --emerald:     #10b981;
+  --amber:       #f59e0b;
+  --rose:        #f43f5e;
+
+  /* -- Text -- */
+  --text-bright: #f0f4ff;
+  --text-mid:    #94a3b8;
+  --text-dim:    #4a5568;
+
+  /* -- Borders & Glows -- */
+  --border-faint:  rgba(99, 102, 241, 0.12);
+  --border-soft:   rgba(99, 102, 241, 0.25);
+  --border-glow:   rgba(99, 102, 241, 0.5);
+  --glow-indigo:   0 0 24px rgba(99, 102, 241, 0.35);
+  --glow-cyan:     0 0 24px rgba(34, 211, 238, 0.3);
+  --glow-violet:   0 0 24px rgba(139, 92, 246, 0.35);
+
+  /* -- Fonts -- */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-mid);
+  background: var(--void);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100svh;
+  overflow-x: hidden;
+  background: var(--void);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--indigo-dim); }
+
+/* Animated mesh background on body */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 50% 50%, rgba(34, 211, 238, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Subtle grid overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Typography ─────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  color: var(--text-bright);
+  line-height: 1.2;
+}
+
+/* ── Glass utility ──────────────────────────────── */
+.glass {
+  background: rgba(20, 25, 41, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--border-faint);
+}
+
+.glass-bright {
+  background: rgba(26, 32, 53, 0.75);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid var(--border-soft);
+}
+
+/* ── Common animations ──────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

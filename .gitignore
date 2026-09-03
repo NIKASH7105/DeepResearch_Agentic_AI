@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environment variables
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Data directories
+data/
+temp/
+reports/
+
+# FAISS indices
+faiss_index/
+*.index
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Frontend build
+frontend/dist/
+frontend/build/
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+coverage/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Research artifacts
+*.pdf
+*.docx
+!Docs/*.pdf
+!Docs/*.docx

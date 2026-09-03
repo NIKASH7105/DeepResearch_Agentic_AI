@@ -2,233 +2,187 @@
 
 **Autonomous AI Research & Report Generation System**
 
-An agentic AI system that autonomously performs multi-step research on user-provided topics using external tools and generates evidence-backed, cited research reports.
+An agentic AI system that autonomously performs multi-step research on user-provided topics using external tools, evidence verification, and generates comprehensive, cited PDF research reports.
+
+---
 
 ## 🎯 Project Overview
 
-DeepResearch Agent demonstrates the complete agentic cycle:
+DeepResearch Agent executes a complete autonomous agentic loop:
 
 **Plan → Act → Observe → Evaluate → Repeat → Generate**
 
-Unlike conventional chatbots, this system:
-- Creates autonomous research plans
-- Selects and uses external tools dynamically
-- Searches web and academic sources
-- Retrieves and analyzes research papers
-- Extracts and verifies evidence
-- Identifies conflicting information
-- Performs additional research when needed
-- Synthesizes findings with proper citations
-- Generates structured research reports
+Unlike conventional Q&A chatbots, this system:
+- **Decomposes** complex user queries into structured sub-questions.
+- **Searches & Scrapes** web and academic data dynamically via external search engines.
+- **Extracts Evidence** into granular facts tied directly to source IDs (`[1]`, `[2]`).
+- **Evaluates Information Quality** and identifies knowledge gaps to run follow-up research iterations.
+- **Synthesizes Findings** into structured reports with inline numerical citations.
+- **Generates Publication-Ready PDFs** complete with metadata tables, research plan breakdowns, cited text, auto-retrieved images, and references.
 
-## 🏗️ Architecture
+---
+
+## 🎨 Modern Deep Space UI
+
+The frontend has been redesigned with a **Deep Space Glassmorphism** theme:
+- **Visual Design**: Dark space palette (`#060810`), animated background mesh, glowing indigo/cyan/violet accents, and backdrop-blur cards.
+- **Interactive Depth Selector**: Card-based toggle for Quick (3–5 sources), Standard (8–15 sources), and Deep (15+ sources) research modes.
+- **Real-Time Stage Timeline**: Visual progress radial arc and vertical step indicator tracking Planning → Searching → Analyzing → Verifying → Synthesizing.
+- **Tabbed Results View**: Tabbed display for the final **Report**, **Research Plan**, real-time **Agent Terminal Log**, and **Source Cards**.
+- **One-Click PDF Export**: Direct download for generated PDF reports.
+
+---
+
+## 🏗️ System Architecture
 
 ```
-Frontend (React + Vite)
-    ↓
-FastAPI Backend
-    ↓
-Research Agent (LangGraph + LLM)
-    ↓
-External Tools (Web Search, Academic APIs, PDF Processing)
-    ↓
-Evidence Management & Verification
-    ↓
-Report Generation (PDF/DOCX)
+┌──────────────────────────────────────────────────────────┐
+│              React 18 + Vite Frontend                    │
+│      (TanStack Query, Deep Space Glassmorphism UI)       │
+└──────────────────────────┬───────────────────────────────┘
+                           │ Async REST / API Polling
+┌──────────────────────────▼───────────────────────────────┐
+│                    FastAPI Backend                       │
+│    (CORS Middleware, Session Manager, File Streaming)    │
+└──────────────────────────┬───────────────────────────────┘
+                           │
+┌──────────────────────────▼───────────────────────────────┐
+│               LangGraph Agentic Workflow                 │
+│  Plan ──► Research ──► Evaluate ──► Gap Search ──► Synthesize│
+└────┬─────────────────────────────────────────────────┬───┘
+     │                                                 │
+┌────▼──────────────────────┐             ┌────────────▼──────────────┐
+│     External Tools        │             │  ReportLab PDF Engine     │
+│ - DuckDuckGo Web Search   │             │ - Custom Layout Templates │
+│ - DuckDuckGo Image Search │             │ - Auto Image Resizing     │
+│ - Ollama / LLM Inference  │             │ - Evidence Tables         │
+└───────────────────────────┘             └───────────────────────────┘
 ```
 
-## 🚀 Getting Started
+---
 
-### Prerequisites
+## 🛠️ Technology Stack
 
-- Python 3.10+
-- Node.js 18+
-- npm or yarn
-- OpenAI API key or Anthropic API key
+### Backend
+- **Framework**: FastAPI (Python 3.10+)
+- **Agentic Workflow**: LangGraph & LangChain Core
+- **LLM Engine**: Ollama (e.g., `llama3.2`), OpenAI, or Anthropic
+- **Search & Media**: DuckDuckGo Search (`ddgs`) & Async `httpx`
+- **PDF Generation**: ReportLab & PIL (Pillow)
+- **ASGI Server**: Uvicorn
 
-### Backend Setup
+### Frontend
+- **Framework**: React 18 + Vite
+- **Data Fetching & State**: TanStack Query (React Query v5) & Axios
+- **Styling**: Custom CSS (Vanilla CSS, Glassmorphism design system, Inter & JetBrains Mono fonts)
+- **Icons**: Lucide React
 
-1. Navigate to the backend directory:
+---
+
+## 🚀 Quick Start Guide
+
+### 1. Prerequisites
+
+- **Python**: 3.10 or higher
+- **Node.js**: 18.0 or higher
+- **LLM Service**: Local [Ollama](https://ollama.ai/) running `llama3.2` (default) or an API key for OpenAI / Anthropic.
+
+### 2. Backend Setup
+
 ```bash
+# Navigate to backend directory
 cd backend
-```
 
-2. Create a virtual environment:
-```bash
+# Create & activate virtual environment
 python -m venv venv
-```
 
-3. Activate the virtual environment:
-```bash
-# Windows
+# Windows PowerShell:
 .\venv\Scripts\activate
 
-# macOS/Linux
+# Linux / macOS:
 source venv/bin/activate
-```
 
-4. Install dependencies:
-```bash
+# Install dependencies
 pip install -r requirements.txt
-```
 
-5. Create `.env` file from example:
-```bash
+# Create .env from template (if needed)
 cp .env.example .env
 ```
 
-6. Edit `.env` and add your API keys:
-```
-OPENAI_API_KEY=your_key_here
-# or
-ANTHROPIC_API_KEY=your_key_here
+Ensure Ollama is running locally:
+```bash
+ollama run llama3.2
 ```
 
-7. Run the backend:
+Start the FastAPI backend server:
 ```bash
 python -m app.main
 ```
+> Backend runs at `http://localhost:8000` (API Docs at `http://localhost:8000/docs`).
 
-The API will be available at `http://localhost:8000`
+### 3. Frontend Setup
 
-### Frontend Setup
+In a new terminal window:
 
-1. Navigate to the frontend directory:
 ```bash
+# Navigate to frontend directory
 cd frontend
-```
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Create `.env` file from example:
-```bash
-cp .env.example .env
-```
-
-4. Start the development server:
-```bash
+# Start development server
 npm run dev
 ```
+> Frontend will be available at `http://localhost:5173`.
 
-The frontend will be available at `http://localhost:5173`
+---
 
 ## 📁 Project Structure
 
 ```
-DeepResearch-Agent/
+Agentic Ai/
 ├── backend/
 │   ├── app/
-│   │   ├── agents/         # Agent logic and LangGraph workflows
-│   │   ├── api/           # FastAPI routes
-│   │   ├── models/        # Data models
-│   │   ├── services/      # Business logic
-│   │   ├── tools/         # External tool integrations
-│   │   └── utils/         # Utility functions
-│   ├── tests/            # Backend tests
-│   ├── requirements.txt  # Python dependencies
-│   └── .env.example     # Environment variables template
+│   │   ├── agents/          # LangGraph research graph, planner, & researcher
+│   │   ├── api/             # FastAPI routers (research & health endpoints)
+│   │   ├── models/          # Pydantic data models & state schema
+│   │   ├── services/        # Evidence extractor & ReportLab PDF generator
+│   │   ├── tools/           # DuckDuckGo web search & image search integrations
+│   │   ├── config.py        # Settings management
+│   │   └── main.py          # FastAPI application entry point & CORS configuration
+│   ├── reports/             # Generated PDF reports output folder
+│   ├── temp/                # Cached search images & temporary assets
+│   ├── .env.example         # Backend environment variables template
+│   └── requirements.txt     # Python dependencies
 ├── frontend/
 │   ├── src/
-│   │   ├── components/   # React components
-│   │   ├── services/     # API client
-│   │   └── utils/        # Frontend utilities
-│   ├── package.json     # Node dependencies
-│   └── .env.example    # Frontend environment variables
-└── Docs/               # Project documentation
+│   │   ├── components/      # ResearchForm, ResearchProgress, ResearchResults
+│   │   ├── services/        # Axios API client
+│   │   ├── App.jsx          # Main application layout & screen manager
+│   │   ├── App.css          # App layout styles & component rules
+│   │   └── index.css        # Global CSS variables, fonts & animations
+│   ├── package.json         # Frontend dependencies & scripts
+│   └── vite.config.js       # Vite configuration
+├── Docs/                    # Project documentation & PRD
+└── README.md                # Project documentation
 ```
-
-## 🔧 Development Phases
-
-- [x] **Phase 1**: Project Foundation ✅
-- [ ] **Phase 2**: Basic LLM Agent
-- [ ] **Phase 3**: External Tool Integration
-- [ ] **Phase 4**: Agentic Research Loop
-- [ ] **Phase 5**: Evidence & Memory System
-- [ ] **Phase 6**: Verification Layer
-- [ ] **Phase 7**: Report Generation
-- [ ] **Phase 8**: UI & Evaluation
-
-## 🛠️ Technologies
-
-### Backend
-- **FastAPI** - Modern web framework
-- **LangChain & LangGraph** - Agent framework
-- **OpenAI/Anthropic** - LLM providers
-- **FAISS** - Vector similarity search
-- **SQLAlchemy** - Database ORM
-- **PyMuPDF** - PDF processing
-- **BeautifulSoup** - Web scraping
-
-### Frontend
-- **React** - UI framework
-- **Vite** - Build tool
-- **TanStack Query** - Data fetching
-- **Axios** - HTTP client
-- **Lucide React** - Icons
-
-## 📚 Features
-
-### Current (Phase 1)
-- ✅ Project structure and configuration
-- ✅ FastAPI backend with health endpoints
-- ✅ React frontend with modern UI
-- ✅ Research session management
-- ✅ Progress tracking interface
-
-### Coming Soon
-- 🔄 Autonomous research planning
-- 🔄 Multi-source research (Web, Academic, arXiv)
-- 🔄 PDF extraction and analysis
-- 🔄 Evidence verification
-- 🔄 Conflict detection
-- 🔄 Citation generation
-- 🔄 PDF/DOCX report generation
-
-## 🧪 Testing
-
-### Backend Tests
-```bash
-cd backend
-pytest
-```
-
-### Frontend Tests
-```bash
-cd frontend
-npm test
-```
-
-## 📖 API Documentation
-
-Once the backend is running, visit:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
-
-## 🤝 Contributing
-
-This is an academic project. Contributions, suggestions, and feedback are welcome!
-
-## 📄 License
-
-This project is for educational purposes.
-
-## 🎓 Academic Context
-
-This project demonstrates:
-- **Agentic AI Architecture** - Autonomous decision-making and tool use
-- **Multi-step Planning** - Breaking down complex research tasks
-- **Tool Integration** - Dynamic tool selection and execution
-- **Evidence-based Generation** - Verifying claims against sources
-- **Iterative Refinement** - Learning from observations and adjusting plans
-
-## 📞 Support
-
-For questions or issues, please refer to the documentation in the `Docs/` directory.
 
 ---
 
-**Version**: 1.0.0  
-**Status**: Phase 1 Complete ✅
+## 📡 Key API Endpoints
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/research/start` | Initialize a new research session |
+| `GET` | `/api/research/{session_id}` | Retrieve session details, research plan, and reasoning logs |
+| `GET` | `/api/research/{session_id}/status` | Poll real-time progress percentage and current task |
+| `GET` | `/api/research/{session_id}/sources` | Retrieve retrieved sources and extracted evidence |
+| `GET` | `/api/research/{session_id}/download/pdf` | Download generated PDF report |
+| `GET` | `/api/health` | Backend service health check |
+
+---
+
+## 📜 License
+
+This project is open-source and intended for academic and educational purposes.
